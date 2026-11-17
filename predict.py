@@ -1,10 +1,10 @@
-"""Deterministic reproduction script for Team Suleyman (More than a Hack 2027 - Phase 1).
+"""Deterministic reproduction script for Team ViscaBarça (More than a Hack 2027 - Phase 1).
 
-Generates the exact 199,319-frame possession submission (`Suleyman.csv`) from the raw tactical
+Generates the exact 199,319-frame possession submission (`ViscaBarça.csv`) from the raw tactical
 tracking data (`BAR-ATH_tactical_atd.xml`, `BAR-ATH_tactical_atd.txt`) and Smart Tagging XML
 (`BAR-ATH_tactical_smart_tagging.xml`), using only `numpy` and `pandas` (`requirements.txt`).
 
-Architecture (Suleyman V8 - Physics-Informed Hierarchical HSMM/Viterbi):
+Architecture (V8 Physics-Informed Hierarchical HSMM/Viterbi):
   1. Kinematic Feature Extraction: Streams the 199,319-frame EPTS tracking file once, computing
      exact 2D Euclidean player-ball distances (`min_dist_h`, `min_dist_a`), Spearman/Fernandez-Bornn
      velocity-projected 0.25s intercept distances (`min_int_h`, `min_int_a`), and 90th-percentile
@@ -22,8 +22,8 @@ Architecture (Suleyman V8 - Physics-Informed Hierarchical HSMM/Viterbi):
 
 Usage:
     export MTAH_DATA_DIR=/path/to/dataset
-    python predict.py --out Suleyman.csv
-    python evaluation/validate_submission.py Suleyman.csv
+    python predict.py --out ViscaBarça.csv
+    python evaluation/validate_submission.py ViscaBarça.csv
     python evaluation/run_evaluation.py --bootstrap 1000
 """
 
@@ -663,8 +663,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
         "--out",
-        default=os.path.join(ROOT, "Suleyman.csv"),
-        help="Output CSV path (default: ./Suleyman.csv)",
+        default=os.path.join(ROOT, "ViscaBarça.csv"),
+        help="Output CSV path (default: ./ViscaBarça.csv)",
     )
     parser.add_argument(
         "--cache",

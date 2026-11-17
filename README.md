@@ -1,14 +1,14 @@
 # More than a Hack 2027 — Phase 1: Ball Possession
 
-> ### Submission & Reproduction Instructions (`Suleyman Mammadov`)
-> - **Technical Document:** [Suleyman.md](Suleyman.md) | [Suleyman.pdf](Suleyman.pdf)
+> ### Submission & Reproduction Instructions (`Team ViscaBarça` — Suleyman Mammadov)
+> - **Technical Document:** [ViscaBarça.md](ViscaBarça.md) | [ViscaBarça.pdf](ViscaBarça.pdf)
 > - **Deterministic Reproduction Script:** [`predict.py`](predict.py) (requires only `numpy` and `pandas` from [`requirements.txt`](requirements.txt); uses **zero** external training data)
 >
 > ```bash
 > pip install -r requirements.txt
 > export MTAH_DATA_DIR=/path/to/dataset   # or unpack dataset into ./data/
-> python predict.py --out Suleyman.csv    # or --out <team_name>.csv
-> python evaluation/validate_submission.py Suleyman.csv
+> python predict.py --out ViscaBarça.csv
+> python evaluation/validate_submission.py ViscaBarça.csv
 > python evaluation/run_evaluation.py --bootstrap 1000
 > ```
 

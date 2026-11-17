@@ -1,8 +1,9 @@
 # Physics-Informed Hierarchical HSMM/Viterbi Decoding with Velocity-Projected Pitch Control and Contact-Gated Emissions for Frame-Exact Football Possession
 
-**Author / Team:** Suleyman Mammadov (`Suleyman` / `@suleyman416`)  
+**Team Name:** `ViscaBarça`  
+**Author:** Suleyman Mammadov (`@suleyman416`)  
 **Challenge:** More than a Hack 2027 — Phase 1: Ball Possession (Metrica Sports & FC Barcelona Innovation Hub)  
-**Deliverables:** `<team_name>.csv` (`Suleyman.csv`, 199,319 frames), `predict.py` + `requirements.txt`, `<team_name>.pdf` / `<team_name>.md`
+**Deliverables:** `ViscaBarça.csv` (199,319 frames), `predict.py` + `requirements.txt`, `ViscaBarça.pdf` / `ViscaBarça.md`
 
 ---
 
@@ -13,7 +14,7 @@ Per-frame ball possession inference from automatic optical tracking data (ATD) f
 2. **2D Projection of 3D Passes & Open-Space Transit Jitter:** During long aerial passes, clearances, or fast ground passes in transit ($v_{\text{ball}} > 9.5\text{ m/s}$ or $\min(d_H, d_A) > 1.35\text{m}$), the ball's 2D $(x, y)$ shadow passes near opposing midfielders who never touch it. Nearest-player heuristics hallucinate false 1–4 second turnovers, fragmenting true possessions (`fragmentation = 2.65–13.48`).
 3. **Smoothing Latency vs. Fragmentation Trade-off:** Centered majority-vote filters (`baseline_smooth50`, `baseline_smooth125`) blur possession boundaries across $2\text{–}5\text{ seconds}$, shifting transitions into mid-flight before physical reception and absorbing short legitimate interceptions.
 
-To solve all three failure modes from first principles—using **zero external training data**—we introduce **Suleyman V8**, a **Two-Stage Physics-Informed Hierarchical Hidden Semi-Markov / Viterbi Decoder** with **Spearman/Fernández-Bornn Velocity-Projected Intercept Distances**, **3D Airborne Flight & Open-Space Transit Gating**, and **Post-Viterbi Forward Contact Snapping**:
+To solve all three failure modes from first principles—using **zero external training data**—we introduce **ViscaBarça V8**, a **Two-Stage Physics-Informed Hierarchical Hidden Semi-Markov / Viterbi Decoder** with **Spearman/Fernández-Bornn Velocity-Projected Intercept Distances**, **3D Airborne Flight & Open-Space Transit Gating**, and **Post-Viterbi Forward Contact Snapping**:
 
 | Submission / Model | **Spell Mean F1** (`0.3..0.7`) *(Primary)* | **Spell F1 @ IoU 0.5** | **Frame Macro F1** *(1st Tie-Break)* | **Dead Ball (`D`) F1** | **Trans F1** (`@25f`) | **Median Latency** | **5-Min Possessions** *(GT = 17, 14.2s)* | **Full-Match Possessions** *(90 min)* |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -25,7 +26,7 @@ To solve all three failure modes from first principles—using **zero external t
 | `Suleyman_v7_p36` *(+Intercept)* | `0.4571` | `0.5143` | `0.8970` | `0.9453` | `0.3902` | `-6.0f` | `18` (`13.4s`) | `304` (`11.1s`) |
 | `Suleyman_v7_p42` *(+Snap)* | `0.4706` | `0.5294` | `0.8958` | `0.9453` | `0.3500` | `-2.0f` | `17` (`14.2s`) | `284` (`11.9s`) |
 | `Suleyman_v8_tr42` *(+Space)* | `0.5333` | `0.6000` | **`0.8980`** | `0.9453` | `0.3889` | `-2.0f` | `13` (`18.5s`) | `253` (`13.3s`) |
-| **`Suleyman.csv` (`V8_p42`)** | **`0.5714`** (`+75.5%`) | **`0.6429`** (`+97.5%`) | **`0.8944`** (`+44.1%`) | **`0.9453`** | **`0.4118`** | **`-2.0f`** (`-0.08s`) | **`11`** (`21.9s`) | **`239`** (`14.1s`) |
+| **`ViscaBarça.csv` (`V8_p42`)** | **`0.5714`** (`+75.5%`) | **`0.6429`** (`+97.5%`) | **`0.8944`** (`+44.1%`) | **`0.9453`** | **`0.4118`** | **`-2.0f`** (`-0.08s`) | **`11`** (`21.9s`) | **`239`** (`14.1s`) |
 
 ---
 
@@ -41,7 +42,7 @@ flowchart LR
     D --> F
     E --> G["Hierarchical State Merger\n• Pre/Halftime/Post -> X\n• Pre-Kickoff Half 2 [110808..113742) -> D\n• Dead Mask -> D, else Team Path -> H / A"]
     F --> G
-    G --> H["Validated Submission\nSuleyman.csv (199,319 rows)"]
+    G --> H["Validated Submission\nViscaBarça.csv (199,319 rows)"]
 ```
 
 ### 1.1 Kinematic & Velocity-Projected Pitch Control Features
@@ -129,7 +130,7 @@ A common pitfall in hackathon challenges is overfitting to the 5-minute public w
 2. **Effective Playing Time Matches La Liga Benchmarks:**
    - While the opening 5 minutes (`11185..18685`) had no goals, cards, substitutions, or VAR reviews (`80.4%` live / `19.6%` dead ball), across the full 90-minute match (including 4 goals, celebrations, substitutions, and set pieces), our model predicts **`54.2%` live play (`51.5 minutes` of effective ball-in-play time)** and **`45.8%` dead ball (`D`)**, matching Opta's published La Liga average effective playing time (`53.6 minutes` / `56.4%` live).
 3. **Full-Match Possession Count & Spell Duration:**
-   - Across the full 90 minutes, `Suleyman.csv` predicts **239 possessions** with a **mean duration of `14.1 seconds`** — matching the ground-truth mean possession duration (**`14.2 seconds`**) within **`0.1 seconds`**! By contrast, `baseline_smooth50` fragments the match into **594 possessions** (`7.5s` mean duration).
+   - Across the full 90 minutes, `ViscaBarça.csv` predicts **239 possessions** with a **mean duration of `14.1 seconds`** — matching the ground-truth mean possession duration (**`14.2 seconds`**) within **`0.1 seconds`**! By contrast, `baseline_smooth50` fragments the match into **594 possessions** (`7.5s` mean duration).
 
 ---
 
@@ -142,7 +143,7 @@ A common pitfall in hackathon challenges is overfitting to the 5-minute public w
 
 ---
 
-## 7. How to Run the Code to Reproduce `Suleyman.csv`
+## 7. How to Run the Code to Reproduce `ViscaBarça.csv`
 
 ### Environment Setup
 ```bash
@@ -150,13 +151,13 @@ pip install -r requirements.txt
 export MTAH_DATA_DIR="/path/to/More Than A Hack 2027 - Initial Challenge - Dataset"
 ```
 
-### Generate & Validate `Suleyman.csv`
+### Generate & Validate `ViscaBarça.csv`
 ```bash
-# 1. Generate Suleyman.csv deterministically from raw tactical ATD + Smart Tagging XML (~40s on CPU)
-python predict.py --out Suleyman.csv
+# 1. Generate ViscaBarça.csv deterministically from raw tactical ATD + Smart Tagging XML (~40s on CPU)
+python predict.py --out ViscaBarça.csv
 
 # 2. Validate format, frame index (0..199318), and label set {H, A, D, X}
-python evaluation/validate_submission.py Suleyman.csv
+python evaluation/validate_submission.py ViscaBarça.csv
 
 # 3. Run full evaluation suite with 1,000-draw block bootstrap
 python evaluation/run_evaluation.py --bootstrap 1000
